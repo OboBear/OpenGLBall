@@ -25,7 +25,6 @@ public class GLESUtil {
         this.mProgram = GLES20.glCreateProgram();
         int fragmentShader = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
         int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
-
         String fragmentShaderSource = getShaderSource(context, "");
 
     }
