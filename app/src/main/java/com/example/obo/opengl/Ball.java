@@ -17,7 +17,7 @@ import java.util.List;
  * Created by obo on 2017/9/11.
  */
 
-public class Ball {
+public class Ball extends Shape {
 
     private int mProgram;
 
@@ -183,6 +183,7 @@ public class Ball {
                 positionList.add(z3);
 
 
+
                 float v1 = m / PartsCount;
                 float u1 = n / PartsCount;
 
@@ -212,7 +213,6 @@ public class Ball {
 
                 texureList.add(u4);
                 texureList.add(v4);
-
             }
         }
 
