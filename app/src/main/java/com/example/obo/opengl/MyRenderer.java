@@ -36,7 +36,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
-        Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1f, 20);
+        Matrix.frustumM(mVMatrix, 0, -ratio, ratio, -1, 1, 1f, 20);
 //        mBall = new Ball(mContext, R.mipmap.ic_launcher);
 //        mBall = new Ball(mContext, R.drawable.imgbug);
 
@@ -48,8 +48,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         // 清除先前的缓存
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
 
-        GLES20.glEnable(GLES20.GL_CULL_FACE);
-        GLES20.glCullFace(GLES20.GL_FRONT);
+//        GLES20.glEnable(GLES20.GL_CULL_FACE);
+//        GLES20.glCullFace(GLES20.GL_FRONT);
 //        GLES20.glCullFace(GLES20.GL_BACK);
 
         // 设置相机的位置(视口矩阵)
@@ -65,11 +65,11 @@ public class MyRenderer implements GLSurfaceView.Renderer {
                 0, 0, 10f,
                 0, 1f, 0f);
 //        Matrix.scaleM(mVMatrix, 0 , (float) (Math.PI/10), 0,0);
-        Matrix.setIdentityM(mVMatrix, 0);
+//        Matrix.setIdentityM(mVMatrix, 0);
 //        Matrix.translateM(mVMatrix, 0, 0.1f, 0, 0);
 
-        float rate = 1.1f;
-        Matrix.scaleM(mVMatrix, 0 , rate,rate/2, rate);
+//        float rate = 1.1f;
+//        Matrix.scaleM(mVMatrix, 0 , rate,rate/2, rate);
 
 
 //        Matrix.rotateM(mVMatrix, 0, mRotate, 0, 1, 0);
