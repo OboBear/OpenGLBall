@@ -87,15 +87,7 @@ public class Ball extends Shape {
                 context.getResources(), backgroundId, options);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureObjectIds[0]);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR_MIPMAP_LINEAR);
-        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
-        // Load the bitmap into the bound texture.
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 
-        GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
-
-        bitmap.recycle();
-
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
         mTexureId = textureObjectIds[0];
     }
