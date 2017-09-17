@@ -89,7 +89,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         Matrix.rotateM(mRotateMatrixX, 0, mRotateX, 0, 1, 0);
 
         Matrix.setIdentityM(mRotateMatrixY, 0);
-        Matrix.rotateM(mRotateMatrixY, 0, mRotateY, 1, 0, 0);
+        Matrix.rotateM(mRotateMatrixY, 0, mRotateY, 0, 0, 1);
 
 
 //        Matrix.scaleM(mVMatrix, 0, 4.0F, 4.0F, 4.0F);

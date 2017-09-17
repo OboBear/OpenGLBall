@@ -3,6 +3,7 @@ package com.example.obo.opengl;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 /**
@@ -10,6 +11,7 @@ import android.view.MotionEvent;
  */
 
 public class MyGLSurface extends GLSurfaceView {
+    private static final String TAG = "MyGLSurface";
 
     MyRenderer myRenderer;
 
@@ -23,23 +25,27 @@ public class MyGLSurface extends GLSurfaceView {
     private float lastX;
     private float lastY;
 
+    private float startX;
+    private float startY;
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                lastX = event.getX() - lastX;
-                lastY = event.getY() - lastY;
+                startX = event.getX();
+                startY = event.getY();
                 return true;
 
             case MotionEvent.ACTION_MOVE:
-                float re = lastX - event.getX();
-                float y = lastY - event.getY();
-                myRenderer.setRotate(re, y);
+                float rotateX = lastX + startX - event.getX();
+                float rotateY = lastY + startY - event.getY();
+                Log.i(TAG, "rotateX = " + rotateX + "  rotateY = " + rotateY);
+                myRenderer.setRotate(rotateX, rotateY);
                 return true;
 
             case MotionEvent.ACTION_UP:
-                lastX = lastX - event.getX();
+                lastX = lastX + startX - event.getX();
+                lastY = lastY + startY - event.getY();
                 return true;
         }
 
