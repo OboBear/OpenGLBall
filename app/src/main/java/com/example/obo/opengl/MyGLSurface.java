@@ -21,6 +21,7 @@ public class MyGLSurface extends GLSurfaceView {
     }
 
     private float lastX;
+    private float lastY;
 
 
     @Override
@@ -28,12 +29,13 @@ public class MyGLSurface extends GLSurfaceView {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 lastX = event.getX() - lastX;
+                lastY = event.getY() - lastY;
                 return true;
 
             case MotionEvent.ACTION_MOVE:
                 float re = lastX - event.getX();
-                myRenderer.setRotate(re);
-
+                float y = lastY - event.getY();
+                myRenderer.setRotate(re, y);
                 return true;
 
             case MotionEvent.ACTION_UP:

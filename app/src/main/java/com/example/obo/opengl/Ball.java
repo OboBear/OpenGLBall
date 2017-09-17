@@ -233,11 +233,12 @@ public class Ball extends Shape {
 
         texurePositions = ByteBuffer.allocateDirect(texureArray.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer().put(texureArray);
         texurePositions.position(0);
-
-
     }
 
     public void draw( float[] matrix) {
+
+        GLES20.glEnable(GLES20.GL_CULL_FACE);
+        GLES20.glCullFace(GLES20.GL_FRONT);
 
 //        Matrix.setLookAtM(matrix, 0,
 //                0, 0f, 0f,
