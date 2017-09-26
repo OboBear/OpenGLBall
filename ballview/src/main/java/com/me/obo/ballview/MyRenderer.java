@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLUtils;
+import android.opengl.Matrix;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -20,9 +21,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private Ball mBall;
     private Context mContext;
     private int mTexureId;
+    private float[] matrix = new float[16];
 
-    public
-    MyRenderer(Context context) {
+    public MyRenderer(Context context) {
         this.mContext = context;
     }
 
@@ -61,6 +62,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        mBall.draw();
+        Matrix.setIdentityM(matrix, 0);
+        mBall.draw(matrix);
     }
 }

@@ -77,7 +77,7 @@ public class Ball {
 
     private void bindShader(int program, int shader, String shaderCode) {
         int shaderT = GLES20.glCreateShader(shader);
-        GLES20.glShaderSource(program, shaderCode);
+        GLES20.glShaderSource(shaderT, shaderCode);
         GLES20.glCompileShader(shaderT);
         GLES20.glAttachShader(program, shaderT);
     }
@@ -97,10 +97,11 @@ public class Ball {
         positions.position(0);
     }
 
-    public void draw() {
+    public void draw(float []matrix) {
 
         GLES20.glEnable(GLES20.GL_CULL_FACE);
-        GLES20.glCullFace(GLES20.GL_FRONT);
+//        GLES20.glCullFace(GLES20.GL_FRONT);
+        GLES20.glCullFace(GLES20.GL_BACK);
 
         GLES20.glUseProgram(mProgram);
 
