@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,11 +18,20 @@ public class MainActivity extends AppCompatActivity {
 
     private MyGLSurface myGLSurface;
 
+    private View btnSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myGLSurface = (MyGLSurface) findViewById(R.id.gl_view);
+        btnSwitch = findViewById(R.id.btn_switch);
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
@@ -35,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
             float Y = event.values[1];
             float Z = event.values[2];
             Log.i(TAG, "X = " + X + " Y = " + Y + " Z = " + Z);
-            myGLSurface.setX(Y, X);
+            if (Math.abs(X) > 0.005 || Math.abs(Y) > 0.005) {
+                myGLSurface.setX(Y, X);
+            }
         }
 
         @Override

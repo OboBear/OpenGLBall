@@ -45,7 +45,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 //        Matrix.translateM(this.mProjMatrix, 0, 0.0F, 0.0F, -2.0F);
         Matrix.scaleM(this.mProjMatrix, 0, 4.0F, 4.0F, 4.0F);
 //        mBall = new Ball(mContext, R.mipmap.ic_launcher);
-        mBall = new Ball(mContext, R.drawable.imgbug);
+        mBall = new Ball(mContext, R.drawable.imgbug2);
 
 //        mTriangle = new Triangle();
     }
