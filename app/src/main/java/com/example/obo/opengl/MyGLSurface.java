@@ -58,9 +58,10 @@ public class MyGLSurface extends GLSurfaceView {
         return super.onTouchEvent(event);
     }
 
-    public void setX(float x) {
+    public void setX(float x , float y) {
         if (!isTouch) {
             lastX -= x * 2;
+            lastY -= y ;
             myRenderer.setRotate(lastX + startX, lastY + startY);
         }
     };

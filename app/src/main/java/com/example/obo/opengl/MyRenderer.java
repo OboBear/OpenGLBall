@@ -4,6 +4,7 @@ import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -13,6 +14,8 @@ import javax.microedition.khronos.opengles.GL10;
  */
 
 public class MyRenderer implements GLSurfaceView.Renderer {
+
+    private static final String TAG = "MyRenderer";
 
     private Context mContext;
 
@@ -39,7 +42,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float) width / height;
         Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1f, 20);
-        Matrix.translateM(this.mProjMatrix, 0, 0.0F, 0.0F, -2.0F);
+//        Matrix.translateM(this.mProjMatrix, 0, 0.0F, 0.0F, -2.0F);
         Matrix.scaleM(this.mProjMatrix, 0, 4.0F, 4.0F, 4.0F);
 //        mBall = new Ball(mContext, R.mipmap.ic_launcher);
         mBall = new Ball(mContext, R.drawable.imgbug);
@@ -56,40 +59,15 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
         Matrix.translateM(mMVPMatrix, 0, 0, 1, 0);
 
-//        Matrix.rotateM(mMVPMatrix, 0, 100, 1,0,0);
-//        Matrix.scaleM(mMVPMatrix, 0, 1, 0.5f , 1);
-
-
-//        Matrix.setLookAtM(mVMatrix, 0,
-//                0, 0f, 0f,
-//                0, 0, 1f,
-//                0, 1f, 0);
-
-//        Matrix.setLookAtM(mProjMatrix, 0,
-//                0, 0f, -1f,
-//                0, 0, 10f,
-//                0, 1f, -1f);
-
-//        Matrix.setIdentityM(mProjMatrix, 0);
-
-//        Matrix.setLookAtM(mVMatrix, 0,
-//                0.5f, 0.5f, 0.5f,
-//                -1f, -1f, -1f,
-//                0, 1f, 0f);
-
-//        Matrix.scaleM(mVMatrix, 0 , (float) (Math.PI/10), 0,0);
-//        Matrix.setIdentityM(mVMatrix, 0);
-//        Matrix.translateM(mVMatrix, 0, 0.1f, 0, 0);
-
-//        float rate = 1.1f;
-//        Matrix.scaleM(mVMatrix, 0 , rate,rate, rate);
-
-
         Matrix.setIdentityM(mRotateMatrixX, 0);
-        Matrix.rotateM(mRotateMatrixX, 0, mRotateX, 0, 1, 0);
+        Matrix.rotateM(mRotateMatrixX, 0, mRotateX, 0, 5, 0);
 
+
+        double degreen = mRotateX / 360 * 2 * Math.PI;
+        Log.i(TAG, "mRotateX = " + mRotateX);
+        Log.i(TAG, "degreen = " + degreen);
         Matrix.setIdentityM(mRotateMatrixY, 0);
-        Matrix.rotateM(mRotateMatrixY, 0, mRotateY, 1, 0, 0);
+        Matrix.rotateM(mRotateMatrixY, 0, mRotateY, (float) Math.cos(degreen), 0, (float) Math.sin(degreen));
 
 
 //        Matrix.scaleM(mVMatrix, 0, 4.0F, 4.0F, 4.0F);
@@ -98,7 +76,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 //        Matrix.multiplyMM(mProjMatrix, 0, mProjMatrix, 0, mMVPMatrix, 0);
 
         Matrix.multiplyMM(mVMatrix, 0, mProjMatrix, 0, mRotateMatrixX, 0);
-//        Matrix.multiplyMM(mVMatrix, 0, mVMatrix, 0, mRotateMatrixY, 0);
+        Matrix.multiplyMM(mVMatrix, 0, mVMatrix, 0, mRotateMatrixY, 0);
         mBall.draw(mVMatrix);
 
 //        mTriangle.draw(mMVPMatrix);
