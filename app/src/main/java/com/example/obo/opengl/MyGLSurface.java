@@ -28,12 +28,15 @@ public class MyGLSurface extends GLSurfaceView {
     private float startX;
     private float startY;
 
+    boolean isTouch = false;
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 startX = event.getX();
                 startY = event.getY();
+                isTouch = true;
                 return true;
 
             case MotionEvent.ACTION_MOVE:
@@ -46,9 +49,19 @@ public class MyGLSurface extends GLSurfaceView {
             case MotionEvent.ACTION_UP:
                 lastX = lastX + startX - event.getX();
                 lastY = lastY + startY - event.getY();
+                startX = 0;
+                startY = 0;
+                isTouch = false;
                 return true;
         }
 
         return super.onTouchEvent(event);
     }
+
+    public void setX(float x) {
+        if (!isTouch) {
+            lastX -= x * 2;
+            myRenderer.setRotate(lastX + startX, lastY + startY);
+        }
+    };
 }
