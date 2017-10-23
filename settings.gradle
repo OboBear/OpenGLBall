@@ -1,1 +1,1 @@
-include ':app', ':ballview'
+include ':app', ':ballview', ':opencv'
