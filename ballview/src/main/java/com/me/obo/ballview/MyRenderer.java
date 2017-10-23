@@ -22,6 +22,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private Context mContext;
     private int mTexureId;
     private float[] matrix = new float[16];
+    private float[] matrixLook = new float[16];
+    private float[] matrixFrustum = new float[16];
 
     public MyRenderer(Context context) {
         this.mContext = context;
@@ -52,17 +54,27 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         GLES20.glClearColor(0.4f, 0.4f, 0.4f, 1);
         mBall = new Ball(getTexure(R.mipmap.ic_launcher));
+        Matrix.setLookAtM(matrixLook, 0,
+                0, 0, 100f,
+                0, 0, -100f,
+                0, 1, 0);
     }
 
-    @Override
-    public void onSurfaceChanged(GL10 gl10, int i, int i1) {
 
+    @Override
+    public void onSurfaceChanged(GL10 gl10, int width, int height) {
+        GLES20.glViewport(0, 0, width, height);
+        Matrix.frustumM(matrixFrustum, 0,
+                -1, 1,
+                -1, 1,
+                90f, 120);
     }
 
     @Override
     public void onDrawFrame(GL10 gl10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        Matrix.setIdentityM(matrix, 0);
+//        Matrix.setIdentityM(matrix, 0);
+        Matrix.multiplyMM(matrix, 0, matrixFrustum, 0, matrixLook, 0);
         mBall.draw(matrix);
     }
 }

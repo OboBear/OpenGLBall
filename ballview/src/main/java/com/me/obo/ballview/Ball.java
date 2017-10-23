@@ -48,9 +48,9 @@ public class Ball {
     private int mTexureId;
 
     private static float[] traingle = {
-            0, 0.5f, 0, 0.5f, 0,
-            -0.5f, -0.5f, 0, 0, 1,
-            0.5f, -0.5f, 0, 1,1
+            0,      0.5f,   2,  0.5f,    0,
+            -0.5f,  -0.5f,  -4,  0,       1,
+            0.5f,   -0.5f,  2,  1,       1
     };
 
     private float color[] = { 1f, 0.76953125f, 0.22265625f, 1.0f };
