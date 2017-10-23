@@ -21,11 +21,8 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     private Ball mBall;
     private Context mContext;
     private float[] matrix = new float[16];
-    private float[] eyeMatrix = new float[16];
-    private float[] frustumMatrix = new float[16];
-    private float[] scaleMatrix = new float[16];
-
-
+    private float[] matrixLook = new float[16];
+    private float[] matrixFrustum = new float[16];
 
     public MyRenderer(Context context) {
         this.mContext = context;
@@ -51,37 +48,29 @@ public class MyRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         GLES20.glClearColor(0.4f, 0.4f, 0.4f, 1);
-//        mBall = new Ball(getTexure(R.mipmap.ic_launcher));
-//        mBall = new Ball(getTexure(R.drawable.aaa));
-        mBall = new Ball(getTexure(R.drawable.bbb));
+        mBall = new Ball(getTexure(R.mipmap.ic_launcher));
+        Matrix.setLookAtM(matrixLook, 0,
+                0, 0, 100f,
+                0, 0, -100f,
+                0, 1, 0);
     }
 
+
     @Override
-    public void onSurfaceChanged(GL10 gl, int width, int height) {
+    public void onSurfaceChanged(GL10 gl10, int width, int height) {
         GLES20.glViewport(0, 0, width, height);
-        Matrix.setIdentityM(eyeMatrix, 0);
-        Matrix.setLookAtM(eyeMatrix, 0,
-                0, 0, 1f,
-                0, 0, -1,
-                -1, 0, 1f);
-
-        Matrix.setIdentityM(frustumMatrix, 0);
-        Matrix.frustumM(frustumMatrix, 0, -1f * height/width, 1f * height/width, -1, 1, 0.5f, 20f);
-
-        Matrix.setIdentityM(scaleMatrix, 0);
-        Matrix.scaleM(scaleMatrix, 0, 2, 2, 2);
+        Matrix.frustumM(matrixFrustum, 0,
+                -1, 1,
+                -1, 1,
+                90f, 120);
     }
 
 
     @Override
     public void onDrawFrame(GL10 gl10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
-        Matrix.setIdentityM(matrix, 0);
-
-        Matrix.multiplyMM(matrix, 0, matrix, 0, eyeMatrix, 0);
-        Matrix.multiplyMM(matrix, 0, matrix, 0, frustumMatrix, 0);
-        Matrix.multiplyMM(matrix, 0, matrix, 0, scaleMatrix, 0);
-
+//        Matrix.setIdentityM(matrix, 0);
+        Matrix.multiplyMM(matrix, 0, matrixFrustum, 0, matrixLook, 0);
         mBall.draw(matrix);
     }
 }
