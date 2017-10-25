@@ -20,7 +20,6 @@ public class MyRenderer implements GLSurfaceView.Renderer {
 
     private Ball mBall;
     private Context mContext;
-    private int mTexureId;
     private float[] matrix = new float[16];
     private float[] matrixLook = new float[16];
     private float[] matrixFrustum = new float[16];
@@ -39,13 +38,9 @@ public class MyRenderer implements GLSurfaceView.Renderer {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texureObjectId[0]);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR_MIPMAP_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
-        // Load the bitmap into the bound texture.
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
-
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
-
         bitmap.recycle();
-
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
         return texureObjectId[0];
     }
@@ -69,6 +64,7 @@ public class MyRenderer implements GLSurfaceView.Renderer {
                 -1, 1,
                 90f, 120);
     }
+
 
     @Override
     public void onDrawFrame(GL10 gl10) {
